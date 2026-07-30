@@ -15,18 +15,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # ── Checkout ────────────────────────────────────────
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # ── Setup Java ──────────────────────────────────────
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '17'
 
-      # ── Setup Flutter ───────────────────────────────────
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -34,19 +31,18 @@ jobs:
           channel: 'stable'
           cache: true
 
-      # ── Create local.properties ─────────────────────────
       - name: Create local.properties
-        run: echo "flutter.sdk=$FLUTTER_ROOT" > android/local.properties
+        run: |
+          mkdir -p android
+          echo "flutter.sdk=$(dirname $(dirname $(which flutter)))" > android/local.properties
+          cat android/local.properties
 
-      # ── Install Dependencies ────────────────────────────
       - name: Install dependencies
         run: flutter pub get
 
-      # ── Build APK ───────────────────────────────────────
       - name: Build APK
         run: flutter build apk --release --no-tree-shake-icons
 
-      # ── Upload APK Artifact ─────────────────────────────
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
@@ -54,7 +50,6 @@ jobs:
           path: build/app/outputs/flutter-apk/app-release.apk
           retention-days: 30
 
-      # ── Create GitHub Release ───────────────────────────
       - name: Create GitHub Release
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         uses: softprops/action-gh-release@v2
@@ -63,9 +58,6 @@ jobs:
           name: "Jin Gaming Hub v1.0.${{ github.run_number }}"
           body: |
             ## 🎮 Jin Gaming Hub - Build ${{ github.run_number }}
-
-            ### What's New
-            - Automated build from commit `${{ github.sha }}`
 
             **Commit**: ${{ github.event.head_commit.message }}
           files: |
