@@ -82,10 +82,10 @@ class _GameOverScreenState extends State<GameOverScreen>
                   builder: (context, child) {
                     final displayScore = (_scoreModel?.score ?? 0)
                         .toDouble();
+                    final animatedScore =
+                        (displayScore * _scoreAnimation.value).toInt();
                     return Text(
-                      Helpers.formatNumber(
-                        (displayScore * _scoreAnimation.value).toInt(),
-                      ),
+                      Helpers.formatNumber(animatedScore),
                       style: TextStyle(
                         color: isNewHighScore
                             ? AppTheme.accent

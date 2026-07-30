@@ -449,13 +449,7 @@ class _AuthScreenState extends State<AuthScreen>
       height: 50,
       child: OutlinedButton.icon(
         onPressed: _handleGoogleSignIn,
-        icon: Image.asset(
-          'assets/images/google_logo.png',
-          width: 24,
-          height: 24,
-          errorBuilder: (_, __, ___) =>
-              const Icon(Icons.login, color: AppTheme.textPrimary),
-        ),
+        icon: const Icon(Icons.login, color: AppTheme.textPrimary),
         label: const Text(
           'Sign in with Google',
           style: TextStyle(color: AppTheme.textPrimary),

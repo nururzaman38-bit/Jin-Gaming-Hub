@@ -23,8 +23,6 @@ class ShareService {
       ..writeln()
       ..writeln('Can you beat my score? Download Jin Gaming Hub now!');
 
-    await SharePlus.instance.share(
-      ShareParams(text: buffer.toString()),
-    );
+    await Share.share(buffer.toString());
   }
 }
