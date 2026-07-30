@@ -31,11 +31,8 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Create local.properties
-        run: |
-          mkdir -p android
-          echo "flutter.sdk=$(dirname $(dirname $(which flutter)))" > android/local.properties
-          cat android/local.properties
+      - name: Disable Flutter analytics
+        run: flutter config --no-analytics
 
       - name: Install dependencies
         run: flutter pub get
