@@ -33,7 +33,8 @@ jobs:
 
       - name: Disable Flutter analytics
         run: flutter config --no-analytics
-
+- name: Create local.properties
+        run: echo "flutter.sdk=$(dirname $(dirname $(which flutter)))" > android/local.properties
       - name: Install dependencies
         run: flutter pub get
 
