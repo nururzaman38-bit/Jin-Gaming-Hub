@@ -131,14 +131,27 @@ flutter build apk --release
 
 ## 🔄 GitHub Actions (CI/CD)
 
-The repository includes a **GitHub Actions workflow** (`.github/workflows/build.yml`) that:
+The workflow file is stored at **`docs/github-actions-workflow.yml`**.
+
+### ⚠️ One-time setup (required):
+
+1. Copy the workflow file to the correct location:
+   ```bash
+   mkdir -p .github/workflows
+   cp docs/github-actions-workflow.yml .github/workflows/build.yml
+   git add .github/workflows/build.yml
+   git commit -m "ci: add GitHub Actions workflow"
+   git push
+   ```
+
+### What the workflow does:
 
 - ✅ Triggers on push to `main` or `arena/*` branches
 - ✅ Sets up Flutter 3.22 + Java 17
-- ✅ Runs `flutter analyze` and `flutter test`
-- ✅ Builds **release APK** and **AAB**
-- ✅ Uploads artifacts (30-day retention)
-- ✅ Creates a **GitHub Release** with APK + AAB on main branch pushes
+- ✅ Runs `flutter pub get` to install dependencies
+- ✅ Builds **release APK**
+- ✅ Uploads APK as artifact (30-day retention)
+- ✅ Creates a **GitHub Release** with APK on main branch pushes
 
 ### To trigger manually:
 Go to **Actions** → **Flutter Build APK** → **Run workflow**
