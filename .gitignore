@@ -45,10 +45,10 @@ app.*.map.json
 local.properties
 android/local.properties
 
-# Firebase
-google-services.json
+# Firebase (placeholder committed for CI)
+# google-services.json
 GoogleService-Info.plist
-firebase_options.dart
+# firebase_options.dart
 
 # Generated files
 *.g.dart

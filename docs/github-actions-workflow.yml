@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - arena/*
   pull_request:
     branches:
       - main
@@ -35,11 +34,9 @@ jobs:
           channel: 'stable'
           cache: true
 
-      # ── Verify Flutter ──────────────────────────────────
-      - name: Verify Flutter installation
-        run: |
-          flutter --version
-          flutter doctor -v
+      # ── Create local.properties ─────────────────────────
+      - name: Create local.properties
+        run: echo "flutter.sdk=$FLUTTER_ROOT" > android/local.properties
 
       # ── Install Dependencies ────────────────────────────
       - name: Install dependencies
